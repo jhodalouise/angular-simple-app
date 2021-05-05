@@ -1,0 +1,32 @@
+<div class="container">
+    <app-user-edit></app-user-edit>
+    <br>
+    <div class="row">
+        <div class="col-xs-12">
+            <table class="table table-striped" style="border: 1px solid grey;">
+                <thead>
+                    <tr>
+                        <th scope="col">id</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Email</th>
+                        <th scope="col">Contact</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let user of users; let i = index">
+                        <th scope="row">{{ i+1 }}</th>
+                        <td>{{ user?.name }}</td>
+                        <td>{{ user?.email }}</td>
+                        <td>{{ user?.contact }}</td>
+                        <td>
+                            <button type="button" [routerLink]="i" class="btn btn-success" (click)="onUserSelected(i)">View</button> |
+                            <button type="button" [routerLink]="i" class="btn btn-primary" (click)="onUpdateUser(i)">Update</button> |
+                            <button type="button" class="btn btn-danger" (click)="onUserDelete(i)" >Delete</button>
+                        </td>
+                    </tr>   
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

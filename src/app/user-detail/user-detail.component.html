@@ -1,0 +1,13 @@
+<div class="container">
+    <div class="row"
+    >
+        <h2>ID: {{ id+1 }}</h2>
+        <h2>Name: {{ selectedUser?.name }} </h2>
+        <h2>Email: {{ selectedUser?.email }} </h2>
+        <h2>Contact: {{ selectedUser?.contact }} </h2>
+        <br>
+        <button class="btn btn-primary" 
+        type="button"
+        (click)="onBackButton()">Back</button>
+    </div>
+</div>
