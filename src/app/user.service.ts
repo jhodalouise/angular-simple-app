@@ -71,7 +71,7 @@ export class UserService {
     deleteUser(index: number) {
         const id = index-1;
         this.users.splice(id,1);
-        // this.updatedUserList.next(this.users);
+        this.updatedUserList.next(this.users);
     }
 
 

@@ -61,13 +61,21 @@ export class DataStorageService {
         });
     }
 
-    deleteUser(index: number) {
-        this.http.delete('http://localhost:8080/api/delete/' + index).pipe(
-            tap( () => {
-                this.userService.deleteUser(index)
-            })
-        )
-        .subscribe();
+    // deleteUser(index: number)  {
+    //     this.http.delete('http://localhost:8080/api/delete/' + index).pipe(
+    //         tap( () => {
+    //             this.userService.deleteUser(index)
+    //         })
+    //     )
+    //     .subscribe();
+    // }
+
+    deleteUser(index: number)  {
+        this.http.delete('http://localhost:8080/api/delete/' + index)
+        .subscribe( data => {
+            this.userService.deleteUser(index);
+        }
+        );
     }
 
 }

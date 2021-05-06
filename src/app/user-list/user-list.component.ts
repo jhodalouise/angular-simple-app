@@ -1,11 +1,10 @@
-import { Component, Input, OnChanges, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
-import { NgForm } from '@angular/forms';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import {  Subject, Subscription } from 'rxjs';
+import {  Subscription } from 'rxjs';
 import { DataStorageService } from 'src/app/data-storage.service';
 
-import { User } from '../../user.model';
-import { UserService } from '../../user.service';
+import { User } from '../user.model';
+import { UserService } from '../user.service';
 
 @Component({
   selector: 'app-user-list',
@@ -47,6 +46,9 @@ export class UserListComponent implements OnInit, OnDestroy {
 
   onUserSelected(id: number) {
     const paramId = id+1;
+    // if (this.route.snapshot.params['id']) {
+    //   this.router.navigate(['..'], {relativeTo: this.route});
+    // }
     this.router.navigate([paramId], {relativeTo: this.route});
   }
 
@@ -59,7 +61,9 @@ export class UserListComponent implements OnInit, OnDestroy {
     console.log(user);
     const id = user.id;
     this.dataStorage.deleteUser(id);
-    history.go(0);
+    // this.router.navigate([this.router.url]);
+
+    // history.go(0);
     // this.router.navigate(['users']);
     // this.route.data.subscribe((
     //   data: {
@@ -68,7 +72,8 @@ export class UserListComponent implements OnInit, OnDestroy {
     //       this.users = data.users;
     //     }
     // );
-    // this.router.navigate([this.router.url]);
+    this.router.navigate(['users']);
+
   }
 
   

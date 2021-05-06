@@ -5,17 +5,15 @@ import { AppComponent } from './app.component';
 import { HttpClientModule } from '@angular/common/http';
 
 import { UserDetailComponent } from './user-detail/user-detail.component';
-import { UsersComponent } from './users/users.component';
 import { FormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
-import { UserListComponent } from './users/user-list/user-list.component';
-import { UserEditComponent } from './users/user-edit/user-edit.component';
+import { UserListComponent } from './user-list/user-list.component';
+import { UserEditComponent } from './user-edit/user-edit.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    UsersComponent,
     UserListComponent,
     UserEditComponent,
     UserDetailComponent,
