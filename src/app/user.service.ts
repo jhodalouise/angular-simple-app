@@ -1,6 +1,6 @@
-import { Injectable, OnInit } from "@angular/core";
+import { Injectable } from "@angular/core";
 import { Subject } from "rxjs";
-import { DataStorageService } from "./data-storage.service";
+
 
 import { User } from "./user.model";
 
@@ -9,6 +9,7 @@ export class UserService {
 
  
     updatedUserList = new Subject<User[]>();
+    userToUpdate = new Subject<number>();
 
 
     private  users: User[] = [];
@@ -45,6 +46,7 @@ export class UserService {
         this.users.splice(index,1);
         this.updatedUserList.next(this.users);
     }
+
 
 
 

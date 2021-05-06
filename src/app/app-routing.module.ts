@@ -9,6 +9,7 @@ const appRoutes: Routes = [
     { path: '', redirectTo: '/users', pathMatch: 'full'},
     { path: 'users', component: UserListComponent, resolve:  { users: UsersResolverService}},
     {path: 'users/:id', component: UserDetailComponent},
+    {path: 'users/:id/:id', redirectTo: '/users'},
     { path: 'update/:id', component: UserListComponent, 
     resolve:  { users: UsersResolverService}},
     { path: 'update/:id/:id', redirectTo: '/users/:id'},

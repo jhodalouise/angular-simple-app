@@ -21,11 +21,16 @@ export class UserEditComponent implements OnInit, OnDestroy {
   id: number;
   index: number;
 
+  indexToListen: Subscription;
+
 
   constructor(private userService: UserService,
     private route: ActivatedRoute,
     private dataStorage: DataStorageService,
     private router: Router) { }
+
+
+
 
   ngOnInit(): void {
     this.id = +this.route.snapshot.params['id']-1;
@@ -44,8 +49,26 @@ export class UserEditComponent implements OnInit, OnDestroy {
           contact: this.selectedUser?.contact
       });
       });
-
+    this.indexToListen = this.userService.userToUpdate
+    .subscribe(
+      (id: number) => {
+        if (this.id >= 0) {
+          this.isEditMode = true;
+        }
+        const users = this.userService.getUsers();
+        this.selectedUser = users[id];
+        this.index = this.selectedUser?.id;
+        this.form.form.patchValue({
+          name: this.selectedUser?.name,
+          email: this.selectedUser?.email,
+          contact: this.selectedUser?.contact
+      });
+      }
+    );
   }
+
+
+
 
   onSubmit(form: NgForm) {
     const name = form.value.name;
@@ -65,6 +88,7 @@ export class UserEditComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.fetchSub.unsubscribe();
     this.userSub.unsubscribe();
+    this.indexToListen.unsubscribe();
   }
 
 }

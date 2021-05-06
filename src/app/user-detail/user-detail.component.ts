@@ -15,6 +15,8 @@ export class UserDetailComponent implements OnInit, OnDestroy {
   id: number;
   paramsSubscription: Subscription;
 
+  users: User[];
+
   constructor(private userService: UserService,
     private router: Router,
     private route: ActivatedRoute,
@@ -26,12 +28,7 @@ export class UserDetailComponent implements OnInit, OnDestroy {
     this.userService.updatedUserList
     .subscribe(
       (users: User[]) => {
-        if (users.length === 0) {
-          this.router.navigate(['users']);
-        }
-        if (this.id >=  users.length || this.id < 0 || isNaN(this.id)) {
-          this.router.navigate(['**']);
-        }
+        this.users = users;
         this.selectedUser = users[this.id];
       });
   }

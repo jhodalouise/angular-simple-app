@@ -14,6 +14,7 @@ import { UserService } from '../user.service';
 export class UserListComponent implements OnInit, OnDestroy {
 
   userSub: Subscription;
+  fetchSub: Subscription;
   public users: User[] = [];
 
   constructor(private userService: UserService,
@@ -22,6 +23,7 @@ export class UserListComponent implements OnInit, OnDestroy {
     private dataStorage: DataStorageService) {}
 
   ngOnInit(): void {
+    this.fetchSub = this.dataStorage.fetchUsers().subscribe();
     this.userSub = this.userService.updatedUserList
     .subscribe(
       (users: User[]) => {
@@ -32,6 +34,7 @@ export class UserListComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.userSub.unsubscribe();
+    this.fetchSub.unsubscribe();
   }
 
 
@@ -41,6 +44,7 @@ export class UserListComponent implements OnInit, OnDestroy {
   }
 
   onUpdateUser(index: number) {
+    this.userService.userToUpdate.next(index);
     this.router.navigate(['update', index+1]);
   }
 
@@ -49,6 +53,7 @@ export class UserListComponent implements OnInit, OnDestroy {
     const id = user.id;
     this.dataStorage.deleteUser(id);
     this.router.navigate(['users']);
+
 
   }
   
