@@ -73,7 +73,10 @@ export class DataStorageService {
     deleteUser(index: number)  {
         this.http.delete('http://localhost:8080/api/delete/' + index)
         .subscribe( data => {
-            this.userService.deleteUser(index);
+            const localUserToDelete = this.userService.getUsers().find(
+                user => user.id === index);
+            const id = localUserToDelete.index;
+            this.userService.deleteUser(id);
         }
         );
     }

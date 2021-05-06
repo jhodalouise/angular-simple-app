@@ -56,11 +56,23 @@ export class UserListComponent implements OnInit, OnDestroy {
     this.router.navigate(['update', index+1]);
   }
 
-  onUserDelete(index: number) {
-    const user = this.users[index];
-    console.log(user);
-    const id = user.id;
-    this.dataStorage.deleteUser(id);
+  // openModal(index: number) {
+  //   let modal = document.getElementById("modalId");
+  //   let span = document.getElementsByClassName("exit")[0];
+  //   modal.style.display = "flex";
+  //   span.addEventListener('click', function() {
+  //     modal.style.display = "none";
+  //   });
+  // }
+
+
+
+  // onUserDelete(index: number) {
+  //   const user = this.users[index];
+  //   console.log(user);
+  //   const id = user.id;
+  //   this.dataStorage.deleteUser(id);
+
     // this.router.navigate([this.router.url]);
 
     // history.go(0);
@@ -72,19 +84,19 @@ export class UserListComponent implements OnInit, OnDestroy {
     //       this.users = data.users;
     //     }
     // );
+
+  //   this.router.navigate(['users']);
+
+  // }
+
+   onUserDelete(index: number) {
+    const user = this.users[index];
+    console.log(user);
+    const id = user.id;
+    this.dataStorage.deleteUser(id);
     this.router.navigate(['users']);
-
   }
-
   
-
-
-
- 
-
-
-
-
 
 
 
