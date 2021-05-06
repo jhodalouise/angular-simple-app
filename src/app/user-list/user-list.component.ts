@@ -36,7 +36,11 @@ export class UserListComponent implements OnInit, OnDestroy {
     .subscribe(
       (users: User[]) => {
         this.users = users;
+        console.log("Updated users below");
+        console.log(this.users);
       });
+
+     this.users = this.userService.getUsers(); 
   }
 
   ngOnDestroy() {
@@ -90,11 +94,18 @@ export class UserListComponent implements OnInit, OnDestroy {
   // }
 
    onUserDelete(index: number) {
-    const user = this.users[index];
+    const user = this.userService.getUser(index);
     console.log(user);
     const id = user.id;
     this.dataStorage.deleteUser(id);
     this.router.navigate(['users']);
+
+
+    // const user = this.users[index];
+    // console.log(user);
+    // const id = user.id;
+    // this.dataStorage.deleteUser(id);
+    // this.router.navigate(['users']);
   }
   
 

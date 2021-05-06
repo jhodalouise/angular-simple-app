@@ -57,7 +57,6 @@ export class UserEditComponent implements OnInit, OnDestroy {
   onSubmit(form: NgForm) {
     console.log('editmode is ' + this.isEditMode);
     console.log(form.value);
-    const index = form.value.id;
     const name = form.value.name;
     const email = form.value.email;
     const contact = form.value.contact;

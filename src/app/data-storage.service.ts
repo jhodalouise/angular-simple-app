@@ -74,9 +74,15 @@ export class DataStorageService {
         this.http.delete('http://localhost:8080/api/delete/' + index)
         .subscribe( data => {
             const localUserToDelete = this.userService.getUsers().find(
-                user => user.id === index);
-            const id = localUserToDelete.index;
-            this.userService.deleteUser(id);
+                user => user.id === index); // finding the user in the local array that has the index in the API array
+                console.log('Local user to delete');
+                console.log(localUserToDelete);
+            // getting the index of the element in the local array
+            const i = this.userService.getUsers().map( user => user.id).indexOf(index);
+            this.userService.deleteUser(i);
+
+            // const id = localUserToDelete.id; 
+            // this.userService.deleteUser(id);
         }
         );
     }

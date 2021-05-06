@@ -1,4 +1,4 @@
-import { Injectable } from "@angular/core";
+import { Injectable, OnInit } from "@angular/core";
 import { Subject } from "rxjs";
 import { DataStorageService } from "./data-storage.service";
 
@@ -6,7 +6,6 @@ import { User } from "./user.model";
 
 @Injectable({providedIn: 'root'})
 export class UserService {
-
 
     // constructor(private dataStorage: DataStorageService) {}
 
@@ -30,8 +29,8 @@ export class UserService {
         // this.updatedUserList.next(this.users);
     }
     
-    getUser(id: number) {
-        const user = this.users.find(user => user.id === id);
+    getUser(indexfromLocalArray: number) {
+        const user = this.users[indexfromLocalArray];
         console.log("user is below: ");
         console.log(user);
         return user;
@@ -63,14 +62,18 @@ export class UserService {
     }
 
     updateUser(user: User) {
-        const id = user.id-1;
-        this.users[id] = user;
+        // get the id from API
+        const id = user.id;
+        // get the index using the id
+        const index = this.users.map( user => user.id).indexOf(id);
+        this.users[index] = user;
         this.updatedUserList.next(this.users);
     }
 
     deleteUser(index: number) {
-        const id = index-1;
-        this.users.splice(id,1);
+        // const id = index-1;
+        // this.users.splice(id,1);
+        this.users.splice(index,1);
         this.updatedUserList.next(this.users);
     }
 
