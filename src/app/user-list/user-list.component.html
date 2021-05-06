@@ -1,9 +1,8 @@
 <div class="container">
     <app-user-edit></app-user-edit>
     <br>
-
     <div class="row">
-        <div class="col-xs-12">
+        <div class="col-xs-10">
             <table class="table table-striped" style="border: 1px solid grey;">
                 <thead>
                     <tr>
@@ -15,19 +14,6 @@
                     </tr>
                 </thead>
                 <tbody *ngFor="let user of users; let i = index">
-                    <!-- Modal -->
-                    <!-- <div id="modalId" class="modal">
-                        <div class="insideModal">
-                            <span class="exit">close</span>
-                            <h3>Warning</h3>
-                            <div class="nCart">
-                                <p> Are you sure you want to delete {{ user?.name | uppercase }}?</p>
-                            </div>
-                            <div class="checkout">
-                                <button type="button" class="btn btn-danger" (click)="onUserDelete(i)">Proceed</button>
-                            </div>
-                        </div>
-                    </div> -->
                     <tr >
                         <th scope="row">{{ i+1 }}</th>
                         <td>{{ user?.name }}</td>
@@ -36,7 +22,7 @@
                         <td>
                             <button type="button" [routerLink]="i" class="btn btn-success" (click)="onUserSelected(i)">View</button> |
                             <button type="button" [routerLink]="i" class="btn btn-primary" (click)="onUpdateUser(i)">Update</button> |
-                            <button type="button" class="btn btn-danger" (click)="onUserDelete(i)" >Delete</button>
+                            <button type="button" class="btn btn-danger" (click)="onUserDelete(i)">Delete</button>
                         </td>
                     </tr>   
                 </tbody>

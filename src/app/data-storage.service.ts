@@ -12,10 +12,15 @@ export class DataStorageService {
 
     }
 
-    // currentUser = new Subject<User>();
-    currentUsers : User[];
+    // CREATE
+    storeUser(user: User) {
+        this.http.post<User>('http://localhost:8080/api/add', user)
+        .subscribe( user => {
+            this.userService.addUser(user);
+        });
+    }
 
-
+    // READ
     fetchUsers() {
         console.log("Fetch");
         return this.http.get<User[]>('http://localhost:8080/api/users')
@@ -24,33 +29,12 @@ export class DataStorageService {
                 return {...user};
             });
         }), tap(users => {
-            console.log("fetchUsers() from dataStorage");
             this.userService.setUsers(users);
         })
         );
     }
 
-    // fetchUser(index: number) {
-    //     return this.http.get<User>('http://localhost:8080/api/users/'+ index)
-    //     .pipe(map ((user: User) => {
-    //         console.log(user.index);
-    //     }));
-    // }
-
-    fetchUser(index: number) {
-        return this.http.get<User>('http://localhost:8080/api/users/'+ index)
-        .subscribe( user => {
-            console.log(user.name);
-        });
-    }
-
-    storeUser(user: User) {
-        this.http.post<User>('http://localhost:8080/api/add', user)
-        .subscribe( user => {
-            this.userService.addUser(user);
-        });
-    }
-
+    // UPDATE
     updateUser(index: number, updatedUser:User) {
         console.log("updateUser from dataStorage");
         this.http.put<User>('http://localhost:8080/api/update/' + index, updatedUser)
@@ -61,30 +45,17 @@ export class DataStorageService {
         });
     }
 
-    // deleteUser(index: number)  {
-    //     this.http.delete('http://localhost:8080/api/delete/' + index).pipe(
-    //         tap( () => {
-    //             this.userService.deleteUser(index)
-    //         })
-    //     )
-    //     .subscribe();
-    // }
-
+    // DELETE    
     deleteUser(index: number)  {
         this.http.delete('http://localhost:8080/api/delete/' + index)
         .subscribe( data => {
             const localUserToDelete = this.userService.getUsers().find(
-                user => user.id === index); // finding the user in the local array that has the index in the API array
-                console.log('Local user to delete');
-                console.log(localUserToDelete);
-            // getting the index of the element in the local array
+                user => user.id === index); 
             const i = this.userService.getUsers().map( user => user.id).indexOf(index);
             this.userService.deleteUser(i);
-
-            // const id = localUserToDelete.id; 
-            // this.userService.deleteUser(id);
         }
         );
     }
+
 
 }

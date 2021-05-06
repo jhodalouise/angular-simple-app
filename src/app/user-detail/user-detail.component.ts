@@ -1,4 +1,4 @@
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { DataStorageService } from '../data-storage.service';
@@ -22,15 +22,16 @@ export class UserDetailComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.id = +this.route.snapshot.params['id']-1;
-    this.userService.getIndex(this.id);
-    console.log("id is: ");
-    console.log(this.id);
     this.paramsSubscription = this.dataStorage.fetchUsers().subscribe();
     this.userService.updatedUserList
     .subscribe(
       (users: User[]) => {
-        console.log('aaaaaaa');
-        console.log(users);
+        if (users.length === 0) {
+          this.router.navigate(['users']);
+        }
+        if (this.id >=  users.length || this.id < 0 || isNaN(this.id)) {
+          this.router.navigate(['**']);
+        }
         this.selectedUser = users[this.id];
       });
   }
